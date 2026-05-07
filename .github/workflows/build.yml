@@ -23,15 +23,22 @@ jobs:
         pip install -r requirements.txt
         pip install pyinstaller
 
-    - name: Build with PyInstaller
-      # --noconsole to hide terminal
-      # --onefile to make a single exe
-      # --name to name the output
+    - name: Build FloatingTodo
       run: |
         pyinstaller --noconsole --onefile --name "FloatingTodo" main.py
 
-    - name: Upload Artifact
+    - name: Build ThesisChecker
+      run: |
+        pyinstaller --noconsole --onefile --name "ThesisChecker" thesis_checker.py
+
+    - name: Upload FloatingTodo
       uses: actions/upload-artifact@v4
       with:
         name: FloatingTodo-Executable
         path: dist/FloatingTodo.exe
+
+    - name: Upload ThesisChecker
+      uses: actions/upload-artifact@v4
+      with:
+        name: ThesisChecker-Executable
+        path: dist/ThesisChecker.exe

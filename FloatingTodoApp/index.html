@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Floating ToDo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="glass-container">
+    <div class="header" id="header">
+      <h1>ToDo</h1>
+      <div class="header-buttons">
+        <button id="minimizeBtn" class="btn-icon">−</button>
+        <button id="closeBtn" class="btn-icon">×</button>
+      </div>
+    </div>
+
+    <div class="input-section">
+      <input type="text" id="todoInput" placeholder="添加新任务...">
+      <div class="input-row">
+        <input type="datetime-local" id="reminderTime">
+        <input type="text" id="musicPath" placeholder="音乐路径（可选）">
+      </div>
+      <button id="addBtn" class="btn-primary">添加</button>
+    </div>
+
+    <div class="filter-section">
+      <button class="filter-btn active" data-filter="all">全部</button>
+      <button class="filter-btn" data-filter="active">进行中</button>
+      <button class="filter-btn" data-filter="completed">已完成</button>
+    </div>
+
+    <div class="todo-list" id="todoList">
+      <!-- ToDo items will be inserted here -->
+    </div>
+
+    <div class="music-player" id="musicPlayer">
+      <div class="player-info">
+        <span id="currentTrack">未播放</span>
+      </div>
+      <div class="player-controls">
+        <button id="playBtn" class="btn-icon">▶</button>
+        <button id="pauseBtn" class="btn-icon">⏸</button>
+        <button id="stopBtn" class="btn-icon">⏹</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
