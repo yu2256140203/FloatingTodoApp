@@ -1,4 +1,4 @@
-name: Build Windows App
+name: Build Thesis Apps & FloatingTodo
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: "3.10"
+        python-version: "3.11"
 
     - name: Install dependencies
       run: |
@@ -23,13 +23,63 @@ jobs:
         pip install -r requirements.txt
         pip install pyinstaller
 
+    # ======================== Thesis App Advanced ========================
+    - name: Build Thesis App Advanced (High-end Version)
+      run: |
+        pyinstaller --noconsole --onefile `
+          --name "ThesisChecker_Advanced" `
+          --collect-all PyQt6 `
+          --collect-all Qt6 `
+          thesis_app_advanced.py
+
+    # ======================== Thesis App Modern ========================
+    - name: Build Thesis App Modern (Modern Version)
+      run: |
+        pyinstaller --noconsole --onefile `
+          --name "ThesisChecker_Modern" `
+          --collect-all PyQt6 `
+          --collect-all Qt6 `
+          thesis_app_modern.py
+
+    # ======================== Thesis App Launcher ========================
+    - name: Build Thesis Launcher
+      run: |
+        pyinstaller --noconsole --onefile `
+          --name "ThesisChecker" `
+          --collect-all PyQt6 `
+          --collect-all Qt6 `
+          run_thesis.py
+
+    # ======================== FloatingTodo ========================
     - name: Build FloatingTodo
       run: |
         pyinstaller --noconsole --onefile --name "FloatingTodo" main.py
 
-    - name: Build ThesisChecker
+    # ======================== Original Thesis Checker ========================
+    - name: Build Thesis Checker Classic
       run: |
-        pyinstaller --noconsole --onefile --name "ThesisChecker" thesis_checker.py
+        pyinstaller --noconsole --onefile `
+          --name "ThesisChecker_Classic" `
+          thesis_checker.py
+
+    # ======================== Upload Artifacts ========================
+    - name: Upload Thesis Checker Advanced
+      uses: actions/upload-artifact@v4
+      with:
+        name: ThesisChecker-Advanced
+        path: dist/ThesisChecker_Advanced.exe
+
+    - name: Upload Thesis Checker Modern
+      uses: actions/upload-artifact@v4
+      with:
+        name: ThesisChecker-Modern
+        path: dist/ThesisChecker_Modern.exe
+
+    - name: Upload Thesis Launcher
+      uses: actions/upload-artifact@v4
+      with:
+        name: ThesisChecker-Launcher
+        path: dist/ThesisChecker.exe
 
     - name: Upload FloatingTodo
       uses: actions/upload-artifact@v4
@@ -37,8 +87,8 @@ jobs:
         name: FloatingTodo-Executable
         path: dist/FloatingTodo.exe
 
-    - name: Upload ThesisChecker
+    - name: Upload Thesis Checker Classic
       uses: actions/upload-artifact@v4
       with:
-        name: ThesisChecker-Executable
-        path: dist/ThesisChecker.exe
+        name: ThesisChecker-Classic
+        path: dist/ThesisChecker_Classic.exe
